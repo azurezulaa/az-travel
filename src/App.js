@@ -1,9 +1,12 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Login from "./pages/Login";
+import Login from "./component/Login";
 import Home from "./pages/Home";
 import { CssBaseline } from "@mui/material";
-import Navbar from "./pages/Navbar";
+import Navbar from "./component/Navbar";
+import Stays from "./pages/Stays";
+import Flights from "./pages/Flights";
+import Packages from "./pages/Pack";
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -15,10 +18,10 @@ function App() {
       <Navbar open={open} handleOpen={handleOpen} handleClose={handleClose} />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/" element={<Home />} />
-        <Route path="/" element={<Home />} />
+        <Route path="/Home" element={<Home />} />
+        <Route path="/Stays" element={<Stays />} />
+        <Route path="/Flights" element={<Flights />} />
+        <Route path="/Packages" element={<Packages />} />
       </Routes>
     </Router>
   );
