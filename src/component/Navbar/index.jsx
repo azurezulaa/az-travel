@@ -35,13 +35,12 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
+        {navItems.map((item) =><ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
               <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
-        ))}
+        )}
       </List>
     </Box>
   );
@@ -54,9 +53,9 @@ function Navbar(props) {
       <CssBaseline />
       <AppBar
         component="nav"
-        sx={{ background: "transparent", boxShadow: "none" }}
+        sx={{ background: "transparent", boxShadow: "none", position:"absolute" }}
       >
-        <Toolbar sx={{ marginLeft: "47px", marginTop: "24px" }}>
+        <Toolbar sx={{ margin:"2% 3%"}}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -71,8 +70,8 @@ function Navbar(props) {
             component="div"
             sx={{
               flexGrow: 1,
-              display: { xs: "none", sm: "block" },
               fontWeight: "bold",
+              fontSize: { xs: "24px", sm: "32px" }
             }}
           >
             trxvl.
@@ -87,7 +86,7 @@ function Navbar(props) {
                   color: "#fff",
                   opacity: "0.7",
                   textDecoration: "none",
-                  padding: "0 15px",
+                  margin: "0 2vw",
                 }}
                 to={"/" + item}
               >
@@ -101,8 +100,8 @@ function Navbar(props) {
                 fontSize: "16px",
                 color: "#fff",
                 opacity: "0.8",
-                margin: "0 50px 0 10px",
                 textTransform: "none",
+                paddingLeft:"2vw",
               }}
             >
               Sign In
