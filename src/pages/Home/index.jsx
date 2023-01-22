@@ -22,7 +22,7 @@ const Home = () => {
       sx={{
         backgroundImage: "url(./assets/headimg.svg)",
         backgroundSize: "cover",
-        height: "100vh",
+        minHeight: {md:"120vh", xs:"80vh"},
         padding: "10%",
       }}
     >
@@ -30,45 +30,47 @@ const Home = () => {
         <Typography
         variant="h1"
         component="div"
-          sx={{ color: "#fff", fontSize:{xs:"32px", sm:"50px", md:"72px"}, width:"60%", margin: "0", fontWeight:"700" }}
+          sx={{ color: "#fff", fontSize:{xs:"32px", sm:"50px", md:"72px"}, width:"65%", margin: {md:"1% 0", xs:"3% 0"}, fontWeight:"700"}}
         >
           The whole world awaits.
         </Typography>
-        <Grid container sx={{alignItems:"center", borderRadius:"1rem"}}>
-          <Grid item xs={12} md={4} sx={{display:"flex", backgroundColor: "rgba(200,200,200, 0.85)",borderRadius:{xs:"2rem", md:"none"}}}>
+        <Grid container sx={{alignItems:"center", borderRadius:"1rem", backgroundColor: {md:"rgba(200,200,200, 0.8)", xs:"none"}, padding:{xs:"8px 0", md:"8px 16px"}}}>
+          <Grid item xs={12} md={4} sx={{minHeight:"36px", margin:{xs:"5px 0",md:"0"}, display:"flex", justifyContent:{xs:"center", md:"flex-start"},backgroundColor:{xs:"rgba(200,200,200, 0.8)", md:"transparent"},borderRadius:{xs:"2rem", md:"none"}}}>
           <SearchIcon sx={{color:"white", opacity:"0.7", alignSelf:"center"}}/>
           <InputBase sx={{background:"transparent", minWidth:"300px"}} type="search" placeholder="Search destinations, hotels"/>
           </Grid>
-          <Grid item xs={12} md={4} sx={{display:"flex", backgroundColor: "rgba(200,200,200, 0.85)",borderRadius:{xs:"2rem", md:"none"}}}>
-          <Grid sx={{display:"flex"}}>
+          <Grid item xs={12} md={4} sx={{minHeight:"36px", margin:{xs:"5px 0",md:"0"}, display:"flex", justifyContent:"space-around", backgroundColor:{xs:"rgba(200,200,200, 0.8)", md:"transparent"},borderRadius:{xs:"2rem", md:"none"}}}>
+          <Grid sx={{display:"flex", alignItems:"center"}}>
           <CalendarTodayOutlinedIcon sx={{color:"white", opacity:"0.7"}} />
           <Typography sx={{color:"white", opacity:"0.7"}}>Check in</Typography>
           </Grid>
-          <Grid sx={{display:"flex"}}>
+          <Grid sx={{display:"flex", alignItems:"center"}}>
           <CalendarTodayOutlinedIcon sx={{color:"white", opacity:"0.7"}} />
           <Typography sx={{color:"white", opacity:"0.7"}}>Check out</Typography>
           </Grid>
           </Grid>
-          <Grid item xs={12} md={2} sx={{display:"flex", backgroundColor: "rgba(200,200,200, 0.85)",borderRadius:{xs:"2rem", md:"none"}}}>
+          <Grid item xs={12} md={2} sx={{ minHeight:"36px", margin:{xs:"5px 0",md:"0"}, display:"flex", alignItems:"center", justifyContent:"center", backgroundColor:{xs:"rgba(200,200,200, 0.8)", md:"transparent"},borderRadius:{xs:"2rem", md:"none"}}}>
             <PersonIcon sx={{color:"white", opacity:"0.7"}}/>
-            <Typography sx={{color:"white", opacity:"0.7"}}>1 room, 2 adults</Typography>
+            <Typography sx={{lineHeight:"1rem", color:"white", opacity:"0.7"}}>1 room, 2 adults</Typography>
           </Grid>
-          <Grid item xs={12} md={2}>
+          <Grid item xs={12} md={2} sx={{minHeight:"36px", margin:{xs:"5px 0",md:"0"}}}>
           <Button variant="text" sx={{color:{sm:"#2659C3", xs:"white"},backgroundColor:{sm:"white", xs:"#2659C3"}, textTransform:"none", fontWeight:"bold", borderRadius:"2rem", width:"100%", border:"none"}}>Search</Button>
           </Grid>
         </Grid>
-        <h4 style={{ color: "#fff", fontSize: "32px" }}>Top categories</h4>
+        <Typography sx={{fontWeight:"bold", color: "#fff", fontSize: {xs:"28px", md:"32px"}, margin:"3% 0" }}>Top categories</Typography>
 
         <Grid
           sx={{
             color: "#fff",
             display: "flex",
-            justifyContent: "space-around",
+            justifyContent: "space-between",
           }}
         >
           {items.map((item) => (
             <Box>
+              <div style={{display:"flex", justifyContent:"center"}}>
               <img src={item.img} alt="" />
+              </div>
               <p style={{ opacity: "0.4" }}>{item.category}</p>
             </Box>
           ))}

@@ -7,6 +7,7 @@ import Navbar from "./component/Navbar";
 import Stays from "./pages/Stays";
 import Flights from "./pages/Flights";
 import Packages from "./pages/Pack";
+import Footer from "./component/Footer";
 
 function App() {
   const [open, setOpen] = React.useState(false);
@@ -23,6 +24,7 @@ function App() {
         <Route path="/Flights" element={<Flights />} />
         <Route path="/Packages" element={<Packages />} />
       </Routes>
+      <Footer/>
     </Router>
   );
 }
