@@ -24,7 +24,7 @@ function App() {
         <Route path="/Flights" element={<Flights />} />
         <Route path="/Packages" element={<Packages />} />
       </Routes>
-      <Footer/>
+      <Footer />
     </Router>
   );
 }
