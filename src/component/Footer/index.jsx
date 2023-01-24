@@ -93,7 +93,7 @@ const Footer = () => {
         sx={{
           display: { xs: "flex", sm: "none" },
           justifyContent: "space-between",
-          position: "absolute",
+          position: "fixed",
           bottom: "0",
           backgroundColor: "white",
           width: "100%",

@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Button, Grid, Typography } from "@mui/material";
+
 const TopVacation = () => {
   const vacations = [
     { title: "Bali, Indonesia", img: "./assets/topvac1.png" },
@@ -19,18 +20,18 @@ const TopVacation = () => {
     <Box
       sx={{
         marginLeft: "10%",
-        marginTop: { xs: "-200px", sm: "-265px", md: "-300px", lg: "-350px" },
+        marginTop: { xs: "-215px", sm: "-215px", md: "-250px" },
       }}
     >
       <Typography
         sx={{
+          color: "white",
+          fontSize: "32px",
           fontWeight: "bold",
-          color: "#fff",
-          fontSize: { xs: "28px", md: "32px" },
-          margin: "3% 0",
+          marginBottom: "3%",
         }}
       >
-        Top categories
+        Top Vacations
       </Typography>
       <Box
         sx={{
@@ -41,22 +42,20 @@ const TopVacation = () => {
         }}
       >
         {vacations.map((vac) => (
-          <Box
-            sx={{
-              position: "relative",
-              width: { sm: "310px", xs: "230px" },
-              height: { sm: "200px", xs: "150px" },
-            }}
-          >
-            <img style={{ borderRadius: "8px" }} src={vac.img} alt="" />
+          <Box sx={{ position: "relative" }}>
+            <img
+              style={{ width: "300px", borderRadius: "8px", height: "200px" }}
+              src={vac.img}
+              alt=""
+            />
             <Typography
               sx={{
                 position: "absolute",
-                bottom: "5%",
-                left: "7%",
+                bottom: "7%",
+                left: "5%",
                 color: "white",
-                fontWeight: "bold",
                 fontSize: "24px",
+                fontWeight: "bold",
               }}
             >
               {vac.title}

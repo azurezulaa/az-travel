@@ -189,10 +189,11 @@ const Header = () => {
             color: "#fff",
             display: "flex",
             justifyContent: "space-between",
+            overflowX: "auto",
           }}
         >
           {items.map((item) => (
-            <Box>
+            <Box sx={{ margin: "0 5px" }}>
               <div style={{ display: "flex", justifyContent: "center" }}>
                 <img src={item.img} alt="" />
               </div>
