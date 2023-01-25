@@ -72,7 +72,7 @@ const Connect = () => {
           display: "flex",
           overflowX: "auto",
           "&::-webkit-scrollbar": { display: "none" },
-          padding: "1% 0 1% 1%",
+          padding: "2% 0 2% 1%",
           gap: "30px",
           marginBottom: "10vh",
         }}

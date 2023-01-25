@@ -186,7 +186,6 @@ const Header = () => {
 
         <Grid
           sx={{
-            color: "#fff",
             display: "flex",
             justifyContent: "space-between",
             overflowX: "auto",
@@ -194,10 +193,14 @@ const Header = () => {
         >
           {items.map((item) => (
             <Box sx={{ margin: "0 5px" }}>
-              <div style={{ display: "flex", justifyContent: "center" }}>
-                <img src={item.img} alt="" />
-              </div>
-              <p style={{ opacity: "0.4" }}>{item.category}</p>
+              <button style={{ background: "transparent", border: "none" }}>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <img src={item.img} alt="" />
+                </div>
+                <p style={{ opacity: "0.4", color: "white", fontSize: "16px" }}>
+                  {item.category}
+                </p>
+              </button>
             </Box>
           ))}
         </Grid>

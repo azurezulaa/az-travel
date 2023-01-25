@@ -16,9 +16,15 @@ import Typography from "@mui/material/Typography";
 import { Button, Modal } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Login from "../Login";
+import { useState } from "react";
 
 const drawerWidth = 240;
-const navItems = ["Home", "Stays", "Flights", "Packages"];
+const navItems = [
+  { active: "true", title: "Home" },
+  { active: "false", title: "Stays" },
+  { active: "false", title: "Flights" },
+  { active: "false", title: "Packages" },
+];
 
 function Navbar(props) {
   const { window } = props;
@@ -35,12 +41,13 @@ function Navbar(props) {
       </Typography>
       <Divider />
       <List>
-        {navItems.map((item) =><ListItem key={item} disablePadding>
+        {navItems.map((item) => (
+          <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
+              <ListItemText primary={item.name} />
             </ListItemButton>
           </ListItem>
-        )}
+        ))}
       </List>
     </Box>
   );
@@ -48,14 +55,21 @@ function Navbar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
+  const [status, setStatus] = useState(false);
+
   return (
     <Box sx={{ display: "flex" }}>
       <CssBaseline />
       <AppBar
         component="nav"
-        sx={{ background: "transparent", boxShadow: "none", position:"absolute" }}
+        sx={{
+          background: "transparent",
+          boxShadow: "none",
+          position: "absolute",
+          display: "flex",
+        }}
       >
-        <Toolbar sx={{ margin:"2% 3%"}}>
+        <Toolbar sx={{ margin: "2% 3%" }}>
           <IconButton
             color="inherit"
             aria-label="open drawer"
@@ -71,7 +85,8 @@ function Navbar(props) {
             sx={{
               flexGrow: 1,
               fontWeight: "bold",
-              fontSize: { xs: "24px", sm: "32px" }
+              fontSize: { xs: "24px", sm: "32px" },
+              marginLeft: { xs: "37%", sm: "0" },
             }}
           >
             trxvl.
@@ -80,18 +95,21 @@ function Navbar(props) {
             sx={{ display: { xs: "none", sm: "flex", alignItems: "center" } }}
           >
             {navItems.map((item) => (
-              <NavLink
-                key={item}
-                style={{
-                  color: "#fff",
-                  opacity: "0.7",
-                  textDecoration: "none",
-                  margin: "0 2vw",
-                }}
-                to={"/" + item}
+              <Button
+                sx={{ padding: "0", textTransform: "none", fontSize: "16px" }}
               >
-                {item}
-              </NavLink>
+                <NavLink
+                  style={{
+                    color: "#fff",
+                    opacity: "0.7",
+                    textDecoration: "none",
+                    margin: "0 2vw",
+                  }}
+                  to={"/" + item.title}
+                >
+                  {item.title}
+                </NavLink>
+              </Button>
             ))}
             <Button
               onClick={props.handleOpen}
@@ -101,7 +119,7 @@ function Navbar(props) {
                 color: "#fff",
                 opacity: "0.8",
                 textTransform: "none",
-                paddingLeft:"2vw",
+                paddingLeft: "2vw",
               }}
             >
               Sign In
