@@ -1,7 +1,24 @@
-import { Box, Button, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Grid,
+  iconButtonClasses,
+  Typography,
+} from "@mui/material";
 import React from "react";
+import { useState } from "react";
 
+const mobileIcons = [
+  { img: "./assets/App1.svg", title: "Home" },
+  { img: "./assets/App2.svg", title: "Packages" },
+  { img: "./assets/App3.svg", title: "Stays" },
+  { img: "./assets/App4.svg", title: "Flights" },
+];
 const Footer = () => {
+  const [index, setIndex] = useState(0);
+  const clicked = (i) => {
+    setIndex(i);
+  };
   return (
     <Box sx={{ position: "relative" }}>
       <Grid
@@ -101,54 +118,21 @@ const Footer = () => {
           paddingTop: "5px",
         }}
       >
-        <Button
-          sx={{
-            textTransform: "none",
-            display: "flex",
-            flexDirection: "column",
-            opacity: "0.4",
-            "&:hover": { backgroundColor: "white", opacity: "1" },
-          }}
-        >
-          <img src="./assets/App1.svg" alt="" />
-          <p style={{ margin: "0" }}>Home</p>
-        </Button>
-        <Button
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            textTransform: "none",
-            opacity: "0.4",
-            "&:hover": { backgroundColor: "white", opacity: "1" },
-          }}
-        >
-          <img src="./assets/App2.svg" alt="" />
-          <p style={{ margin: "0" }}>Packages</p>
-        </Button>
-        <Button
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            textTransform: "none",
-            opacity: "0.4",
-            "&:hover": { backgroundColor: "white", opacity: "1" },
-          }}
-        >
-          <img src="./assets/App3.svg" alt="" />
-          <p style={{ margin: "0" }}>Stays</p>
-        </Button>
-        <Button
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            textTransform: "none",
-            opacity: "0.4",
-            "&:hover": { backgroundColor: "white", opacity: "1" },
-          }}
-        >
-          <img src="./assets/App4.svg" alt="" />
-          <p style={{ margin: "0" }}>Flights</p>
-        </Button>
+        {mobileIcons.map((icon, i) => (
+          <Button
+            onClick={() => clicked(i)}
+            sx={{
+              textTransform: "none",
+              display: "flex",
+              flexDirection: "column",
+              opacity: i === index ? "1" : "0.5",
+              "&:hover": { backgroundColor: "white" },
+            }}
+          >
+            <img src={icon.img} alt="" />
+            <p style={{ margin: "0" }}>{icon.title}</p>
+          </Button>
+        ))}
       </Grid>
     </Box>
   );

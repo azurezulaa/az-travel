@@ -17,14 +17,10 @@ import { Button, Modal } from "@mui/material";
 import { NavLink } from "react-router-dom";
 import Login from "../Login";
 import { useState } from "react";
+import Packages from "../../pages/Pack";
 
 const drawerWidth = 240;
-const navItems = [
-  { active: "true", title: "Home" },
-  { active: "false", title: "Stays" },
-  { active: "false", title: "Flights" },
-  { active: "false", title: "Packages" },
-];
+const navItems = ["Home", "Stays", "Flight", "Packages"];
 
 function Navbar(props) {
   const { window } = props;
@@ -44,7 +40,7 @@ function Navbar(props) {
         {navItems.map((item) => (
           <ListItem key={item} disablePadding>
             <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item.name} />
+              <ListItemText primary={item} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -55,7 +51,11 @@ function Navbar(props) {
   const container =
     window !== undefined ? () => window().document.body : undefined;
 
-  const [status, setStatus] = useState(false);
+  const [index, setIndex] = useState(0);
+
+  const clicked = (i) => {
+    setIndex(i);
+  };
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -94,32 +94,41 @@ function Navbar(props) {
           <Box
             sx={{ display: { xs: "none", sm: "flex", alignItems: "center" } }}
           >
-            {navItems.map((item) => (
-              <Button
-                sx={{ padding: "0", textTransform: "none", fontSize: "16px" }}
+            {navItems.map((item, i) => (
+              <NavLink
+                style={{
+                  textDecoration: "none",
+                }}
+                to={"/" + item}
               >
-                <NavLink
-                  style={{
-                    color: "#fff",
-                    opacity: "0.7",
-                    textDecoration: "none",
-                    margin: "0 2vw",
+                <Button
+                  sx={{
+                    padding: "0",
+                    textTransform: "none",
+                    fontSize: "16px",
+                    color: "white",
+                    margin: "2vw",
+                    opacity: i === index ? "1" : "0.7",
+                    borderBottom: i === index ? "1px white solid" : "none",
+                    borderRadius: "0",
+                    "&:hover": { background: "none" },
                   }}
-                  to={"/" + item.title}
+                  onClick={() => clicked(i)}
                 >
-                  {item.title}
-                </NavLink>
-              </Button>
+                  {item}
+                </Button>
+              </NavLink>
             ))}
             <Button
               onClick={props.handleOpen}
               sx={{
+                padding: "0",
                 fontWeight: "700",
                 fontSize: "16px",
                 color: "#fff",
-                opacity: "0.8",
                 textTransform: "none",
-                paddingLeft: "2vw",
+                marginLeft: "2vw",
+                opacity: "0.8",
               }}
             >
               Sign In
