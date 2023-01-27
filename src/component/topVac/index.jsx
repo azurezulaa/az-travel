@@ -20,7 +20,7 @@ const TopVacation = () => {
     <Box
       sx={{
         marginLeft: "10%",
-        marginTop: { xs: "-215px", sm: "-215px", md: "-250px" },
+        // marginTop: { xs: "-215px", sm: "-215px", md: "-250px" },
       }}
     >
       <Typography

@@ -23,6 +23,11 @@ const drawerWidth = 240;
 const navItems = ["Home", "Stays", "Flight", "Packages"];
 
 function Navbar(props) {
+  const [isLogged, setIsLogged] = useState(localStorage.getItem("isLogged"));
+
+  if (isLogged === "true") {
+    props.handleClose();
+  }
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -119,20 +124,37 @@ function Navbar(props) {
                 </Button>
               </NavLink>
             ))}
-            <Button
-              onClick={props.handleOpen}
-              sx={{
-                padding: "0",
-                fontWeight: "700",
-                fontSize: "16px",
-                color: "#fff",
-                textTransform: "none",
-                marginLeft: "2vw",
-                opacity: "0.8",
-              }}
-            >
-              Sign In
-            </Button>
+            {isLogged === "true" ? (
+              <button
+                onClick={props.handleOpen}
+                sx={{
+                  padding: "0",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                  color: "#fff",
+                  textTransform: "none",
+                  marginLeft: "2vw",
+                  opacity: "0.8",
+                }}
+              >
+                Sign Out
+              </button>
+            ) : (
+              <Button
+                onClick={props.handleOpen}
+                sx={{
+                  padding: "0",
+                  fontWeight: "700",
+                  fontSize: "16px",
+                  color: "#fff",
+                  textTransform: "none",
+                  marginLeft: "2vw",
+                  opacity: "0.8",
+                }}
+              >
+                Sign In
+              </Button>
+            )}
           </Box>
         </Toolbar>
       </AppBar>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
@@ -12,14 +12,13 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 
 const Signup = (props) => {
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // const data = new FormData(event.currentTarget);
-    // console.log({
-    //   email: data.get("email"),
-    //   password: data.get("password"),
-    // });
-  };
+  const [isLogged, setIsLogged] = useState(localStorage.getItem("isLogged"));
+
+  if (isLogged === "true") {
+    // props.setSignIn(false);
+    return null;
+  }
+
   return (
     <Container component="main" maxWidth="xs">
       <Box
@@ -39,7 +38,7 @@ const Signup = (props) => {
         <Typography component="h1" variant="h5">
           БҮРТГҮҮЛЭХ
         </Typography>
-        <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+        <Box noValidate sx={{ mt: 1 }}>
           <TextField
             margin="normal"
             required

@@ -37,7 +37,7 @@ const Header = ({ clicked, index }) => {
         boxShadow: "inset 0 -120px 60px -50px rgb(255,255,255)",
       }}
     >
-      <Box>
+      <Box sx={{ height: "fit-content", backgroundColor: "red" }}>
         <Typography
           variant="h1"
           component="div"
