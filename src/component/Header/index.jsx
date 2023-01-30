@@ -32,12 +32,12 @@ const Header = ({ clicked, index }) => {
       sx={{
         backgroundImage: "url(./assets/headimg.svg)",
         backgroundSize: "cover",
-        height: { xs: "80vh", md: "90vh" },
+        minHeight: { xs: "80vh", md: "90vh" },
         padding: "10%",
         boxShadow: "inset 0 -120px 60px -50px rgb(255,255,255)",
       }}
     >
-      <Box sx={{ height: "fit-content", backgroundColor: "red" }}>
+      <Box sx={{ height: "fit-content" }}>
         <Typography
           variant="h1"
           component="div"

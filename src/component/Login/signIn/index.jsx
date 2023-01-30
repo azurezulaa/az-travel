@@ -15,7 +15,6 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signin = (props) => {
-  const [isLogged, setIsLogged] = useState(localStorage.getItem("isLogged"));
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [open, setOpen] = useState(false);
@@ -26,10 +25,12 @@ const Signin = (props) => {
   const login = () => {
     if (email === "" || password === "") {
       setOpen(true);
-      console.log("login");
+      props.isLogged = "true";
     } else {
-      console.log(email, password);
       localStorage.setItem("isLogged", "true");
+      setOpen(false);
+      props.handleClose();
+
       navigate("/");
     }
   };

@@ -25,7 +25,7 @@ const TopVacation = () => {
     >
       <Typography
         sx={{
-          color: "white",
+          color: "black",
           fontSize: "32px",
           fontWeight: "bold",
           marginBottom: "3%",
