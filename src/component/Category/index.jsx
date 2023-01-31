@@ -73,7 +73,7 @@ const Category = () => {
             sx={{
               borderRadius: "16px",
               width: "352px",
-              height: "342px",
+              height: "550px",
               boxShadow: "0px 4px 16px rgba(158, 158, 158, 0.25)",
               gap: "10px",
               padding: "20px",
@@ -110,10 +110,21 @@ const Category = () => {
                 </Typography>
               </Box>
             </Box>
-            <Box>
-              {items.map((item) => {
-                <Box></Box>;
-              })}
+            <Box
+              sx={{
+                display: "flex",
+                opacity: "0.4",
+                justifyContent: "space-between",
+              }}
+            >
+              {items.map((item) => (
+                <Box>
+                  <img src={item.img} alt="" />
+                  <Typography sx={{ fontSize: "12px" }}>
+                    {item.title}
+                  </Typography>
+                </Box>
+              ))}
             </Box>
           </Box>
         ))}
