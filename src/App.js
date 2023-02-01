@@ -1,7 +1,8 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
+import axios from "axios";
+
 import Home from "./pages/Home";
-import { CssBaseline } from "@mui/material";
 import Navbar from "./component/Navbar";
 import Stays from "./pages/Stays";
 import Flights from "./pages/Flights";
@@ -13,8 +14,7 @@ function App() {
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
   return (
-    <Router>
-      <CssBaseline />
+    <>
       <Navbar open={open} handleOpen={handleOpen} handleClose={handleClose} />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -24,7 +24,7 @@ function App() {
         <Route path="/Packages" element={<Packages />} />
       </Routes>
       <Footer />
-    </Router>
+    </>
   );
 }
 

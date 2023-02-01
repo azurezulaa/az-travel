@@ -1,4 +1,3 @@
-import PropTypes from "prop-types";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,34 +15,18 @@ import { Button, Modal } from "@mui/material";
 import { Navigate, NavLink } from "react-router-dom";
 import Login from "../Login";
 import React, { useEffect, useState } from "react";
-import Packages from "../../pages/Pack";
 
 const drawerWidth = 240;
 const navItems = ["Home", "Stays", "Flight", "Packages"];
 
 function Navbar(props) {
-  const [isLogged, setIsLogged] = useState(localStorage.getItem("isLogged"));
-
   const { window } = props;
   const [mobileOpen, setMobileOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
-  if (isLogged === "true") {
-    props.handleClose();
-  }
-  const signOut = () => {
-    localStorage.setItem("isLogged", false);
-    setIsLogged(false);
-  };
-
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
-  useEffect(() => {
-    console.log(localStorage.getItem("isLogged"));
-    setIsLogged(localStorage.getItem("isLogged"));
-  }, [isLogged]);
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -72,7 +55,6 @@ function Navbar(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      {console.log("nav ret")}
       <CssBaseline />
       <AppBar
         component="nav"
@@ -135,7 +117,7 @@ function Navbar(props) {
             ))}
             {isLogged === "true" ? (
               <button
-                onClick={signOut}
+                onClick={() => {}}
                 sx={{
                   padding: "0",
                   fontWeight: "700",
@@ -150,7 +132,7 @@ function Navbar(props) {
               </button>
             ) : (
               <Button
-                onClick={props.handleOpen}
+                onClick={() => {}}
                 sx={{
                   padding: "0",
                   fontWeight: "700",
@@ -187,8 +169,8 @@ function Navbar(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Modal open={props.open} onClose={props.handleClose}>
-        <Login handleClose={props.handleClose} isLogged={isLogged} />
+      <Modal>
+        <Login />
       </Modal>
     </Box>
   );
