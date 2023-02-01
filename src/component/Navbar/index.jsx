@@ -13,37 +13,28 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import { Button, Modal } from "@mui/material";
-import { Navigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Login from "../Login";
-import React, { useEffect, useState } from "react";
-import Packages from "../../pages/Pack";
+import React, { useState } from "react";
 
 const drawerWidth = 240;
 const navItems = ["Home", "Stays", "Flight", "Packages"];
 
-function Navbar(props) {
-  const [isLogged, setIsLogged] = useState(localStorage.getItem("isLogged"));
-
-  const { window } = props;
+function Navbar({
+  window,
+  login,
+  logout,
+  user,
+  open,
+  handleClose,
+  handleOpen,
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [index, setIndex] = useState(0);
-
-  if (isLogged === "true") {
-    props.handleClose();
-  }
-  const signOut = () => {
-    localStorage.setItem("isLogged", false);
-    setIsLogged(false);
-  };
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
-
-  useEffect(() => {
-    console.log(localStorage.getItem("isLogged"));
-    setIsLogged(localStorage.getItem("isLogged"));
-  }, [isLogged]);
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
@@ -133,9 +124,11 @@ function Navbar(props) {
                 </Button>
               </NavLink>
             ))}
-            {isLogged === "true" ? (
+            {user ? (
               <button
-                onClick={signOut}
+                onClick={() => {
+                  logout();
+                }}
                 sx={{
                   padding: "0",
                   fontWeight: "700",
@@ -150,7 +143,7 @@ function Navbar(props) {
               </button>
             ) : (
               <Button
-                onClick={props.handleOpen}
+                onClick={handleOpen}
                 sx={{
                   padding: "0",
                   fontWeight: "700",
@@ -187,8 +180,8 @@ function Navbar(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Modal open={props.open} onClose={props.handleClose}>
-        <Login handleClose={props.handleClose} isLogged={isLogged} />
+      <Modal open={open} onClose={handleClose}>
+        <Login handleClose={handleClose} login={login} />
       </Modal>
     </Box>
   );

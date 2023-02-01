@@ -1,7 +1,8 @@
-import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import React, { useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import axios from "axios";
+
 import Home from "./pages/Home";
-import { CssBaseline } from "@mui/material";
 import Navbar from "./component/Navbar";
 import Stays from "./pages/Stays";
 import Flights from "./pages/Flights";
@@ -9,13 +10,44 @@ import Packages from "./pages/Pack";
 import Footer from "./component/Footer";
 
 function App() {
+  const [user, setUser] = useState(localStorage.getItem("user"));
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
+  const login = async (email, password) => {
+    // console.log("Login", email);
+    // console.log("Login", password);
+
+    try {
+      const res = await axios.post("http://localhost:8000/signin", {
+        email,
+        password,
+      });
+      console.log("SUCCESS", res.data.user);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setUser(res.data.user);
+      handleClose();
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
+
+  const logout = () => {
+    localStorage.removeItem("user");
+    setUser(null);
+  };
+
   return (
-    <Router>
-      <CssBaseline />
-      <Navbar open={open} handleOpen={handleOpen} handleClose={handleClose} />
+    <>
+      <Navbar
+        login={login}
+        logout={logout}
+        user={user}
+        open={open}
+        handleClose={handleClose}
+        handleOpen={handleOpen}
+      />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Home" element={<Home />} />
@@ -24,7 +56,7 @@ function App() {
         <Route path="/Packages" element={<Packages />} />
       </Routes>
       <Footer />
-    </Router>
+    </>
   );
 }
 

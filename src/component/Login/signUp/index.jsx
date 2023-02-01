@@ -10,17 +10,74 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import { Alert, Snackbar } from "@mui/material";
+import axios from "axios";
 
 const Signup = (props) => {
-  const [isLogged, setIsLogged] = useState(localStorage.getItem("isLogged"));
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [password, setPassword] = useState("");
+  const [rePassword, setRePassword] = useState("");
 
-  if (isLogged === "true") {
-    // props.setSignIn(false);
-    return null;
-  }
+  const [isAlert, setIsAlert] = useState("");
+  const [message, setMessage] = useState("");
+  const [state, setState] = useState("error");
+
+  const changeEmail = (e) => {
+    setEmail(e.target.value);
+  };
+  const changeName = (e) => {
+    setName(e.target.value);
+  };
+  const changePassword = (e) => {
+    setPassword(e.target.value);
+  };
+  const changeRePassword = (e) => {
+    setRePassword(e.target.value);
+  };
+
+  const signup = async () => {
+    console.log(!email);
+    if (!email || !name || !password || !rePassword) {
+      setMessage("Мэдээлллийг бүрэн бөглөнө үү. !!!");
+      setIsAlert(true);
+      return;
+    }
+
+    if (password !== rePassword) {
+      setMessage("Нууц үг хоорондоо таарахгүй байна. !!!");
+      setIsAlert(true);
+      return;
+    }
+
+    try {
+      const res = await axios.post("http://localhost:8000/signup", {
+        name,
+        email,
+        password,
+      });
+      console.log("res", res);
+      setState("success");
+      setMessage(res.data.message);
+      setIsAlert(true);
+      props.setSignIn(true);
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
 
   return (
     <Container component="main" maxWidth="xs">
+      <Snackbar
+        open={isAlert}
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        autoHideDuration={3000}
+        onClose={() => {
+          setIsAlert(false);
+        }}
+      >
+        <Alert severity={state}>{message}</Alert>
+      </Snackbar>
       <Box
         sx={{
           marginTop: 8,
@@ -48,6 +105,7 @@ const Signup = (props) => {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={changeName}
           />
           <TextField
             margin="normal"
@@ -58,6 +116,7 @@ const Signup = (props) => {
             name="email"
             autoComplete="email"
             autoFocus
+            onChange={changeEmail}
           />
           <TextField
             margin="normal"
@@ -68,6 +127,7 @@ const Signup = (props) => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={changePassword}
           />
           <TextField
             margin="normal"
@@ -78,6 +138,7 @@ const Signup = (props) => {
             type="password"
             id="password"
             autoComplete="current-password"
+            onChange={changeRePassword}
           />
           <FormControlLabel
             control={<Checkbox value="remember" color="primary" />}
@@ -88,6 +149,7 @@ const Signup = (props) => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
+            onClick={signup}
           >
             БҮРТГҮҮЛЭХ
           </Button>

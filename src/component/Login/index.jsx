@@ -4,16 +4,12 @@ import Signin from "./signIn";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 
-const Login = ({ handleClose, isLogged }) => {
+const Login = ({ handleClose, login }) => {
   const [isSignIn, setSignIn] = useState(true);
   return (
     <>
       {isSignIn ? (
-        <Signin
-          setSignIn={setSignIn}
-          handleClose={handleClose}
-          isLogged={isLogged}
-        />
+        <Signin login={login} setSignIn={setSignIn} handleClose={handleClose} />
       ) : (
         <Signup setSignIn={setSignIn} />
       )}
