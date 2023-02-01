@@ -13,39 +13,28 @@ import Container from "@mui/material/Container";
 import { Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { is } from "@babel/types";
 
-const Signin = (props) => {
+const Signin = ({setSignIn, login}) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [open, setOpen] = useState(false);
-  const navigate = useNavigate();
+  const [message, setMessage]=useState("")
+  const [isAlert, setAlert] = useState(false);
 
-  const onClose = () => {};
-
-  const login = () => {
-    if (email === "" || password === "") {
-      setOpen(true);
-      props.isLogged = "true";
-    } else {
-      localStorage.setItem("isLogged", "true");
-      setOpen(false);
-      props.handleClose();
-
-      navigate("/");
-    }
-  };
   const changeEmail = (e) => {
     setEmail(e.target.value);
-    // console.log(e.target.value);
   };
   const changePassword = (e) => {
     setPassword(e.target.value);
-    // console.log(e.target.value);
   };
 
-  if (isLogged === "true") {
-    // props.setSignIn(false);
-    return null;
+  const clickLogin = ()=>{
+    if(email===""|| password===""){
+      setMessage("Нэвтрэх нэр эсвэл нууц үг хоосон байна!");
+      setAlert(true);
+      return;
+    }
+    login(email,password);
   }
 
   return (
@@ -98,7 +87,7 @@ const Signin = (props) => {
             fullWidth
             variant="contained"
             sx={{ mt: 3, mb: 2 }}
-            onClick={login}
+            onClick={clickLogin}
           >
             НЭВТРЭХ
           </Button>
@@ -112,7 +101,7 @@ const Signin = (props) => {
               <Button
                 variant="text"
                 onClick={() => {
-                  props.setSignIn(false);
+                  setSignIn(false);
                 }}
               >
                 Бүртгүүлэх
@@ -121,8 +110,14 @@ const Signin = (props) => {
           </Grid>
         </Box>
       </Box>
-      <Snackbar open={open} autoHideDuration={3000} onClose={onClose}>
-        <Alert severity="error">Нэвтрэх нэр эсвэл нууц үг хоосон байна!</Alert>
+      <Snackbar 
+      anchorOrigin={{vertical:"top", horizontal:"right"}}
+      open={isAlert} 
+      onClose={()=>{
+        setAlert(false);
+      }} 
+      autoHideDuration={3000}>
+        <Alert severity="error">{message}</Alert>
       </Snackbar>
     </Container>
   );

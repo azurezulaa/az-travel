@@ -1,26 +1,13 @@
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import CssBaseline from "@mui/material/CssBaseline";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import IconButton from "@mui/material/IconButton";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import { Button, Modal } from "@mui/material";
-import { Navigate, NavLink } from "react-router-dom";
-import Login from "../Login";
+import {Box, Button, Typography, AppBar, Modal, CssBaseline, Divider, Toolbar, Drawer, IconButton, List, ListItem, ListItemText, ListItemButton} from "@mui/material";
+import { NavLink } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 
+import Log from "../Login"
 const drawerWidth = 240;
 const navItems = ["Home", "Stays", "Flight", "Packages"];
 
-function Navbar(props) {
-  const { window } = props;
+function Navbar({window, user, logout, login, openModal, handleClose, handleOpen}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [index, setIndex] = useState(0);
 
@@ -115,9 +102,9 @@ function Navbar(props) {
                 </Button>
               </NavLink>
             ))}
-            {isLogged === "true" ? (
+            {user ? (
               <button
-                onClick={() => {}}
+                onClick={logout}
                 sx={{
                   padding: "0",
                   fontWeight: "700",
@@ -132,7 +119,7 @@ function Navbar(props) {
               </button>
             ) : (
               <Button
-                onClick={() => {}}
+                onClick={handleOpen}
                 sx={{
                   padding: "0",
                   fontWeight: "700",
@@ -169,8 +156,8 @@ function Navbar(props) {
           {drawer}
         </Drawer>
       </Box>
-      <Modal>
-        <Login />
+      <Modal open={openModal} onClose={handleClose}>
+        <Log handleClose={handleClose} login={login}/>
       </Modal>
     </Box>
   );
