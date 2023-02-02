@@ -41,9 +41,9 @@ function App() {
   return (
     <>
       <Navbar
-        login={login}
         logout={logout}
         user={user}
+        setUser={setUser}
         open={open}
         handleClose={handleClose}
         handleOpen={handleOpen}

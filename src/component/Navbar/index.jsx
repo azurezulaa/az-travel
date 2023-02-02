@@ -22,9 +22,9 @@ const navItems = ["Home", "Stays", "Flight", "Packages"];
 
 function Navbar({
   window,
-  login,
   logout,
   user,
+  setUser,
   open,
   handleClose,
   handleOpen,
@@ -181,7 +181,7 @@ function Navbar({
         </Drawer>
       </Box>
       <Modal open={open} onClose={handleClose}>
-        <Login handleClose={handleClose} login={login} />
+        <Login handleClose={handleClose} setUser={setUser} />
       </Modal>
     </Box>
   );

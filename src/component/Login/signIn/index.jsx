@@ -12,15 +12,15 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-const Signin = ({ login, setSignIn }) => {
+const Signin = ({ setSignIn, setUser, handleClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
 
+  const [message, setMessage] = useState("");
+  const [status, setStatus] = useState("error");
   const [isAlert, setIsAlert] = useState(false);
-  const navigate = useNavigate();
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
@@ -39,6 +39,32 @@ const Signin = ({ login, setSignIn }) => {
     }
 
     login(email, password);
+  };
+
+  const login = async (email, password) => {
+    // console.log("Login", email);
+    // console.log("Login", password);
+
+    try {
+      const res = await axios.post("http://localhost:8000/signin", {
+        email,
+        password,
+      });
+      console.log("SUCCESS", res.data.user);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setStatus("success");
+      setMessage(res.data.message);
+      setIsAlert(true);
+      setUser(res.data.user);
+      setTimeout(() => {
+        handleClose();
+      }, 5000);
+    } catch (error) {
+      console.log("ERROR", error);
+      setStatus("error");
+      setMessage(error.response.data.message);
+      setIsAlert(true);
+    }
   };
 
   return (
@@ -122,7 +148,7 @@ const Signin = ({ login, setSignIn }) => {
           setIsAlert(false);
         }}
       >
-        <Alert severity="error">{message}</Alert>
+        <Alert severity={status}>{message}</Alert>
       </Snackbar>
     </Container>
   );
