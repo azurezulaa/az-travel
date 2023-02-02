@@ -1,18 +1,49 @@
 import MenuIcon from "@mui/icons-material/Menu";
-import {Box, Button, Typography, AppBar, Modal, CssBaseline, Divider, Toolbar, Drawer, IconButton, List, ListItem, ListItemText, ListItemButton} from "@mui/material";
+import {
+  Box,
+  Button,
+  Typography,
+  AppBar,
+  Modal,
+  CssBaseline,
+  Divider,
+  Toolbar,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemText,
+  ListItemButton,
+  Tooltip,
+  Avatar,
+  MenuItem,
+  Menu,
+} from "@mui/material";
 import { NavLink } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
-import Log from "../Login"
+import Log from "../userLog";
 const drawerWidth = 240;
 const navItems = ["Home", "Stays", "Flight", "Packages"];
+const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function Navbar({window, user, logout, login, openModal, handleClose, handleOpen}) {
+function Navbar({ window, user, setUser, openModal, handleClose, handleOpen }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [index, setIndex] = useState(0);
+  const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
+  };
+  const handleCloseUserMenu = () => {
+    setAnchorElUser(null);
+  };
+  const handleOpenUserMenu = (event) => {
+    setAnchorElUser(event.currentTarget);
+  };
+  const logout = () => {
+    setUser(null);
+    localStorage.removeItem("user");
   };
 
   const drawer = (
@@ -103,20 +134,36 @@ function Navbar({window, user, logout, login, openModal, handleClose, handleOpen
               </NavLink>
             ))}
             {user ? (
-              <button
-                onClick={logout}
-                sx={{
-                  padding: "0",
-                  fontWeight: "700",
-                  fontSize: "16px",
-                  color: "#fff",
-                  textTransform: "none",
-                  marginLeft: "2vw",
-                  opacity: "0.8",
-                }}
-              >
-                Sign Out
-              </button>
+              <Box sx={{ flexGrow: 0, marginLeft: "2vw" }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar alt="Remy Sharp" />
+                  </IconButton>
+                </Tooltip>
+                <Menu
+                  sx={{ mt: "45px" }}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "right",
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={handleCloseUserMenu}>
+                    <Typography textAlign="center">Profile</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={logout}>
+                    <Typography textAlign="center">Log out</Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
             ) : (
               <Button
                 onClick={handleOpen}
@@ -130,7 +177,11 @@ function Navbar({window, user, logout, login, openModal, handleClose, handleOpen
                   opacity: "0.8",
                 }}
               >
-                Sign In
+                <Tooltip title="Open settings">
+                  <IconButton sx={{ p: 0 }}>
+                    <Avatar alt="Remy Sharp" />
+                  </IconButton>
+                </Tooltip>
               </Button>
             )}
           </Box>
@@ -157,7 +208,7 @@ function Navbar({window, user, logout, login, openModal, handleClose, handleOpen
         </Drawer>
       </Box>
       <Modal open={openModal} onClose={handleClose}>
-        <Log handleClose={handleClose} login={login}/>
+        <Log handleClose={handleClose} setUser={setUser} />
       </Modal>
     </Box>
   );

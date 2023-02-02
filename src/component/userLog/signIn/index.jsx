@@ -12,14 +12,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Snackbar, Alert } from "@mui/material";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { is } from "@babel/types";
+import axios from "axios";
 
-const Signin = ({setSignIn, login}) => {
+const Signin = ({ setSignIn, handleClose, setUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage]=useState("")
+  const [message, setMessage] = useState("");
   const [isAlert, setAlert] = useState(false);
+  const [status, setStatus] = useState("error");
 
   const changeEmail = (e) => {
     setEmail(e.target.value);
@@ -27,15 +27,30 @@ const Signin = ({setSignIn, login}) => {
   const changePassword = (e) => {
     setPassword(e.target.value);
   };
+  const signin = async (email, password) => {
+    try {
+      const res = await axios.post("http://localhost:8000/signin", {
+        email,
+        password,
+      });
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      setUser(res.data.user);
+      handleClose();
+    } catch (error) {
+      setMessage(error.response.data.message);
+      setStatus("success");
+      setAlert(true);
+    }
+  };
 
-  const clickLogin = ()=>{
-    if(email===""|| password===""){
+  const clickLogin = () => {
+    if (email === "" || password === "") {
       setMessage("Нэвтрэх нэр эсвэл нууц үг хоосон байна!");
       setAlert(true);
       return;
     }
-    login(email,password);
-  }
+    signin(email, password);
+  };
 
   return (
     <Container component="main" maxWidth="xs">
@@ -110,14 +125,15 @@ const Signin = ({setSignIn, login}) => {
           </Grid>
         </Box>
       </Box>
-      <Snackbar 
-      anchorOrigin={{vertical:"top", horizontal:"right"}}
-      open={isAlert} 
-      onClose={()=>{
-        setAlert(false);
-      }} 
-      autoHideDuration={3000}>
-        <Alert severity="error">{message}</Alert>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        open={isAlert}
+        onClose={() => {
+          setAlert(false);
+        }}
+        autoHideDuration={3000}
+      >
+        <Alert severity={status}>{message}</Alert>
       </Snackbar>
     </Container>
   );
