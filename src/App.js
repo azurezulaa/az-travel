@@ -7,22 +7,17 @@ import Stays from "./pages/Stays";
 import Flights from "./pages/Flights";
 import Packages from "./pages/Pack";
 import Footer from "./component/Footer";
+import { UserProvider } from "./context";
 
 function App() {
-  const [openModal, setOpenModal] = useState(false);
-  const [user, setUser] = useState(localStorage.getItem("user"));
-
-  const handleOpen = () => setOpenModal(true);
-  const handleClose = () => setOpenModal(false);
-
   return (
-    <>
+    <UserProvider>
       <Navbar
-        user={user}
-        setUser={setUser}
-        openModal={openModal}
-        handleOpen={handleOpen}
-        handleClose={handleClose}
+      // user={user}
+      // setUser={setUser}
+      // openModal={openModal}
+      // handleOpen={handleOpen}
+      // handleClose={handleClose}
       />
       <Routes>
         <Route path="/" element={<Home />} />
@@ -32,7 +27,7 @@ function App() {
         <Route path="/Packages" element={<Packages />} />
       </Routes>
       <Footer />
-    </>
+    </UserProvider>
   );
 }
 
