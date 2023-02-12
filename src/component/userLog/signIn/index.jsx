@@ -11,47 +11,11 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { Snackbar, Alert } from "@mui/material";
-import { useState } from "react";
-import axios from "axios";
+import { useContext } from "react";
+import { UserContext } from "../../../context";
 
-const Signin = ({ setSignIn, handleClose, setUser }) => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [isAlert, setAlert] = useState(false);
-  const [status, setStatus] = useState("error");
-
-  const changeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const changePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const signin = async (email, password) => {
-    try {
-      const res = await axios.post("http://localhost:8000/signin", {
-        email,
-        password,
-      });
-      localStorage.setItem("user", JSON.stringify(res.data.user));
-      setUser(res.data.user);
-      handleClose();
-    } catch (error) {
-      setMessage(error.response.data.message);
-      setStatus("success");
-      setAlert(true);
-    }
-  };
-
-  const clickLogin = () => {
-    if (email === "" || password === "") {
-      setMessage("Нэвтрэх нэр эсвэл нууц үг хоосон байна!");
-      setAlert(true);
-      return;
-    }
-    signin(email, password);
-  };
-
+const Signin = () => {
+  const {isAlert, setAlert, status, message, changeEmail, changePassword, setSignIn, clickLogin}=useContext(UserContext);
   return (
     <Container component="main" maxWidth="xs">
       <Box

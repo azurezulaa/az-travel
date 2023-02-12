@@ -10,57 +10,12 @@ import Box from "@mui/material/Box";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
-import axios from "axios";
 import { Alert, Snackbar } from "@mui/material";
+import { useContext } from "react";
+import { UserContext } from "../../../context";
 
-const Signup = (props) => {
-  const [email, setEmail] = useState("");
-  const [name, setName] = useState("");
-  const [password, setPassword] = useState("");
-  const [rePassword, setRePassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [isAlert, setAlert] = useState("");
-  const [status, setStatus] = useState("error");
-
-  const changeEmail = (e) => {
-    setEmail(e.target.value);
-  };
-  const changeName = (e) => {
-    setName(e.target.value);
-  };
-  const changePassword = (e) => {
-    setPassword(e.target.value);
-  };
-  const changeRePassword = (e) => {
-    setRePassword(e.target.value);
-  };
-  const signup = async () => {
-    if (!email || !name || !password || !rePassword) {
-      setMessage("Мэдээллийг бүрэн бөглөнө үү");
-      setAlert(true);
-      return;
-    }
-    if (password !== rePassword) {
-      setMessage("Нууц үг хоорондоо таарахгүй байна!!!");
-      setAlert(true);
-      return;
-    }
-    try {
-      const res = await axios.post("http://localhost:8000/signup", {
-        name,
-        email,
-        password,
-      });
-      setStatus("succes");
-      setMessage(res.data.message);
-      setAlert(true);
-      props.setSignIn(true);
-    } catch (error) {
-      setStatus("error");
-      setAlert(true);
-    }
-  };
-
+const Signup = () => {
+  const {isAlert, setAlert, status, message, changeEmail, changeName, changePassword,changeRePassword, setSignIn, signup}=useContext(UserContext);
   return (
     <Container component="main" maxWidth="xs">
       <Snackbar
@@ -158,7 +113,7 @@ const Signup = (props) => {
               <Button
                 variant="text"
                 onClick={() => {
-                  props.setSignIn(true);
+                  setSignIn(true);
                 }}
               >
                 НЭВТРЭХ

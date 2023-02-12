@@ -20,18 +20,21 @@ import {
   Menu,
 } from "@mui/material";
 import { NavLink } from "react-router-dom";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 
 import Log from "../userLog";
+import { UserContext } from "../../context";
+
 const drawerWidth = 240;
 const navItems = ["Home", "Stays", "Flight", "Packages"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function Navbar({ window, user, setUser, openModal, handleClose, handleOpen }) {
+function Navbar({ window}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
+  const {logout, handleClose, handleOpen, openModal,user}=useContext(UserContext);
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -40,10 +43,6 @@ function Navbar({ window, user, setUser, openModal, handleClose, handleOpen }) {
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
-  };
-  const logout = () => {
-    setUser(null);
-    localStorage.removeItem("user");
   };
 
   const drawer = (
@@ -70,6 +69,7 @@ function Navbar({ window, user, setUser, openModal, handleClose, handleOpen }) {
   const clicked = (i) => {
     setIndex(i);
   };
+
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -208,7 +208,7 @@ function Navbar({ window, user, setUser, openModal, handleClose, handleOpen }) {
         </Drawer>
       </Box>
       <Modal open={openModal} onClose={handleClose}>
-        <Log handleClose={handleClose} setUser={setUser} />
+        <Log/>
       </Modal>
     </Box>
   );

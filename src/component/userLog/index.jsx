@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import Signup from "./signUp";
 import Signin from "./signIn";
+import { useContext } from "react";
+import { UserContext } from "../../context";
 
 const Log = ({ handleClose, setUser }) => {
-  const [isSignIn, setSignIn] = useState(true);
+  const {isSignIn}=useContext(UserContext);
   return (
     <>
       {isSignIn ? (
         <Signin
-          setSignIn={setSignIn}
-          setUser={setUser}
-          handleClose={handleClose}
         />
       ) : (
-        <Signup setSignIn={setSignIn} setUser={setUser} />
+        <Signup/>
       )}
     </>
   );
