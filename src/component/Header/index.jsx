@@ -5,8 +5,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import PersonIcon from "@mui/icons-material/Person";
 import { styled } from "@mui/material/styles";
-import { useState } from "react";
-import AppsIcon from "@mui/icons-material/Apps";
 const Header = ({ clicked, index }) => {
   const items = [
     {

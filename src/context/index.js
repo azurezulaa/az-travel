@@ -39,7 +39,7 @@ export const UserProvider = ({ children }) => {
 
   const signin = async (email, password) => {
     try {
-      const res = await axios.post("http://localhost:8000/signin", {
+      const res = await axios.post("http://localhost:8000/users/signin", {
         email,
         password,
       });
@@ -67,7 +67,7 @@ export const UserProvider = ({ children }) => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:8000/signup", {
+      const res = await axios.post("http://localhost:8000/users/signup", {
         name,
         email,
         password,
@@ -84,13 +84,14 @@ export const UserProvider = ({ children }) => {
 
   const clickLogin = () => {
     if (email === "" || password === "") {
-      setStatus("error")
+      setStatus("error");
       setMessage("Нэвтрэх нэр эсвэл нууц үг хоосон байна!");
       setAlert(true);
       return;
     }
     signin(email, password);
   };
+
   return (
     <UserContext.Provider
       value={{
@@ -123,7 +124,7 @@ export const UserProvider = ({ children }) => {
         setStatus,
         signin,
         signup,
-        clickLogin
+        clickLogin,
       }}
     >
       {children}

@@ -12,13 +12,7 @@ import { UserProvider } from "./context";
 function App() {
   return (
     <UserProvider>
-      <Navbar
-      // user={user}
-      // setUser={setUser}
-      // openModal={openModal}
-      // handleOpen={handleOpen}
-      // handleClose={handleClose}
-      />
+      <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/Home" element={<Home />} />
