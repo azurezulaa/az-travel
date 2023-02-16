@@ -1,43 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
-const populars = [
-  {
-    img: "./assets/popular1.png",
-    title: "Swiss Apls",
-    price: "$88,952",
-    rate: "4.7",
-  },
-  {
-    img: "./assets/popular2.png",
-    title: "Hallstatt",
-    price: "$88,952",
-    rate: "4.9",
-  },
-  {
-    img: "./assets/popular3.png",
-    title: "Faroe Island",
-    price: "$88,952",
-    rate: "4.5",
-  },
-  {
-    img: "./assets/popular1.png",
-    title: "Swiss Apls",
-    price: "$88,952",
-    rate: "4.7",
-  },
-  {
-    img: "./assets/popular2.png",
-    title: "Hallstatt",
-    price: "$88,952",
-    rate: "4.9",
-  },
-  {
-    img: "./assets/popular3.png",
-    title: "Faroe Island",
-    price: "$88,952",
-    rate: "4.5",
-  },
-];
+import { useState } from "react";
+
 const items = [
   { img: "./assets/icon1.svg", title: "2 Flights" },
   { img: "./assets/icon2.svg", title: "1 Hotel" },
@@ -45,7 +9,7 @@ const items = [
   { img: "./assets/icon4.svg", title: "4 Activities" },
 ];
 
-const Category = () => {
+const Category = ({ filtered }) => {
   return (
     <Box sx={{ marginLeft: "9%", marginBottom: "5%" }}>
       <Typography
@@ -68,12 +32,11 @@ const Category = () => {
           gap: "30px",
         }}
       >
-        {populars.map((pop) => (
+        {filtered.map((pop) => (
           <Box
             sx={{
               borderRadius: "16px",
-              width: "352px",
-              height: "550px",
+              height: "530px",
               boxShadow: "0px 4px 16px rgba(158, 158, 158, 0.25)",
               gap: "10px",
               padding: "20px",
@@ -85,7 +48,7 @@ const Category = () => {
               <img
                 style={{
                   borderRadius: "16px",
-                  width: "310px",
+                  width: "315px",
                   height: "200px",
                 }}
                 src={pop.img}
@@ -113,18 +76,48 @@ const Category = () => {
             <Box
               sx={{
                 display: "flex",
-                opacity: "0.4",
+                opacity: "0.5",
                 justifyContent: "space-between",
+                alignItems: "end",
               }}
             >
               {items.map((item) => (
-                <Box>
+                <Box sx={{ textAlign: "center" }}>
                   <img src={item.img} alt="" />
                   <Typography sx={{ fontSize: "12px" }}>
                     {item.title}
                   </Typography>
                 </Box>
               ))}
+            </Box>
+            <ul style={{ opacity: "0.5", paddingLeft: "15px" }}>
+              <li>Tour combo with return airport transfers</li>
+              <li>City Tour</li>
+              <li>Curious Corner</li>
+            </ul>
+            <Box sx={{ display: "flex", alignItems: "center" }}>
+              <Typography sx={{ textDecoration: "line-through" }}>
+                {pop.price}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  marginLeft: "50px",
+                }}
+              >
+                {pop.price}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  opacity: "0.5",
+                  marginLeft: "5px",
+                  marginTop: "8px",
+                }}
+              >
+                per person
+              </Typography>
             </Box>
           </Box>
         ))}

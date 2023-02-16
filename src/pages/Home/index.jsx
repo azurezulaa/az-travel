@@ -9,16 +9,95 @@ import Plan from "../../component/plan";
 import TopVacation from "../../component/topVac";
 import { useState } from "react";
 import Category from "../../component/Category";
+const populars = [
+  {
+    img: "./assets/popular1.png",
+    title: "Swiss Apls",
+    price: "$88,952",
+    rate: "4.7",
+    category: "beaches",
+  },
+  {
+    img: "./assets/popular2.png",
+    title: "Hallstatt",
+    price: "$88,952",
+    rate: "4.9",
+    category: "beaches",
+  },
+  {
+    img: "./assets/popular3.png",
+    title: "Faroe Island",
+    price: "$88,952",
+    rate: "4.5",
+    category: "beaches",
+  },
+  {
+    img: "./assets/popular1.png",
+    title: "Swiss Apls",
+    price: "$88,952",
+    rate: "4.7",
+    category: "beaches",
+  },
+  {
+    img: "./assets/popular2.png",
+    title: "Hallstatt",
+    price: "$88,952",
+    rate: "4.9",
+    category: "beaches",
+  },
+  {
+    img: "./assets/popular3.png",
+    title: "Faroe Island",
+    price: "$88,952",
+    rate: "4.5",
+    category: "deserts",
+  },
+  {
+    img: "./assets/popular3.png",
+    title: "Faroe Island",
+    price: "$88,952",
+    rate: "4.5",
+    category: "mountains",
+  },
+  {
+    img: "./assets/popular1.png",
+    title: "Swiss Apls",
+    price: "$88,952",
+    rate: "4.7",
+    category: "beaches",
+  },
+  {
+    img: "./assets/popular2.png",
+    title: "Hallstatt",
+    price: "$88,952",
+    rate: "4.9",
+    category: "deserts",
+  },
+  {
+    img: "./assets/popular3.png",
+    title: "Faroe Island",
+    price: "$88,952",
+    rate: "4.5",
+    category: "beaches",
+  },
+];
 
 const Home = () => {
-  const [index, setIndex] = useState(0);
-  const clicked = (i) => {
-    setIndex(i);
+  const [category, setCategory] = useState(null);
+  const [filtered, setFiltered] = useState(populars);
+
+  const filterByCategory = (category) => {
+    const newFiltered = populars.filter(
+      (el) => el.category.toLowerCase() === category.toLowerCase()
+    );
+    setCategory(category);
+    setFiltered(newFiltered);
+    // filterByCategory(category);
   };
   return (
     <Box>
-      <Header clicked={clicked} index={index} />
-      {index === 0 ? (
+      <Header clicked={filterByCategory} category={category} />
+      {!category ? (
         <>
           <TopVacation />
           <Offers />
@@ -27,7 +106,7 @@ const Home = () => {
           <Connect />
         </>
       ) : (
-        <Category />
+        <Category filtered={filtered} />
       )}
       <HomeFooter />
     </Box>

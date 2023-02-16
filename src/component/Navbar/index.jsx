@@ -29,12 +29,14 @@ const drawerWidth = 240;
 const navItems = ["Home", "Stays", "Flight", "Packages"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
-function Navbar({ window}) {
+function Navbar({ window }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [index, setIndex] = useState(0);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
-  const {logout, handleClose, handleOpen, openModal,user}=useContext(UserContext);
+  const { logout, handleClose, handleOpen, openModal, user } =
+    useContext(UserContext);
+
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
@@ -69,7 +71,6 @@ function Navbar({ window}) {
   const clicked = (i) => {
     setIndex(i);
   };
-
 
   return (
     <Box sx={{ display: "flex" }}>
@@ -208,7 +209,7 @@ function Navbar({ window}) {
         </Drawer>
       </Box>
       <Modal open={openModal} onClose={handleClose}>
-        <Log/>
+        <Log />
       </Modal>
     </Box>
   );

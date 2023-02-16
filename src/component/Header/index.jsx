@@ -5,7 +5,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import PersonIcon from "@mui/icons-material/Person";
 import { styled } from "@mui/material/styles";
-const Header = ({ clicked, index }) => {
+const Header = ({ clicked, category }) => {
   const items = [
     {
       img: "./assets/all.svg",
@@ -199,17 +199,18 @@ const Header = ({ clicked, index }) => {
             <Box sx={{ margin: "0 5px" }}>
               <button
                 style={{ background: "transparent", border: "none" }}
-                onClick={() => clicked(i)}
+                onClick={() => clicked(item.category)}
               >
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <img src={item.img} alt="" />
                 </div>
                 <p
                   style={{
-                    opacity: i === index ? 1 : "0.4",
+                    opacity: item.category === category ? 1 : "0.4",
                     color: "white",
                     fontSize: "16px",
-                    borderBottom: i === index ? "2px solid white" : "none",
+                    borderBottom:
+                      item.category === category ? "2px solid white" : "none",
                     paddingBottom: "10px",
                   }}
                 >

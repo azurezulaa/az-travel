@@ -39,7 +39,7 @@ export const UserProvider = ({ children }) => {
 
   const signin = async (email, password) => {
     try {
-      const res = await axios.post("http://localhost:8000/users/signin", {
+      const res = await axios.post("http://localhost:8000/auth/signin", {
         email,
         password,
       });
@@ -67,7 +67,7 @@ export const UserProvider = ({ children }) => {
       return;
     }
     try {
-      const res = await axios.post("http://localhost:8000/users/signup", {
+      const res = await axios.post("http://localhost:8000/auth/signup", {
         name,
         email,
         password,
@@ -75,8 +75,8 @@ export const UserProvider = ({ children }) => {
       setStatus("succes");
       setMessage(res.data.message);
       setAlert(true);
-      setSignIn(true);
     } catch (error) {
+      setMessage("Error");
       setStatus("error");
       setAlert(true);
     }
