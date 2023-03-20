@@ -5,23 +5,9 @@ import SearchIcon from "@mui/icons-material/Search";
 import Typography from "@mui/material/Typography";
 import PersonIcon from "@mui/icons-material/Person";
 import { styled } from "@mui/material/styles";
-const Header = ({ clicked, category }) => {
-  const items = [
-    {
-      img: "./assets/all.svg",
-      category: "ALL",
-    },
-    { img: "./assets/cat1.svg", category: "Beaches" },
-    { img: "./assets/cat2.svg", category: "Deserts" },
-    { img: "./assets/cat3.svg", category: "Mountains" },
-    { img: "./assets/cat4.svg", category: "Iconic Cities" },
-    { img: "./assets/cat5.svg", category: "Houseboats" },
-    { img: "./assets/cat6.svg", category: "Countryside" },
-    { img: "./assets/cat7.svg", category: "Camping" },
-    { img: "./assets/cat8.svg", category: "Castles" },
-    { img: "./assets/cat9.svg", category: "Skiing" },
-    { img: "./assets/cat10.svg", category: "Tropical" },
-  ];
+
+const Header = ({ clicked, category, selectedCat }) => {
+  console.log("OP", selectedCat);
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "white",
   }));
@@ -195,22 +181,24 @@ const Header = ({ clicked, category }) => {
             overflowX: "auto",
           }}
         >
-          {items.map((item, i) => (
+          {category.map((item, i) => (
             <Box sx={{ margin: "0 5px" }}>
               <button
                 style={{ background: "transparent", border: "none" }}
-                onClick={() => clicked(item.category)}
+                onClick={() => clicked(item)}
               >
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <img src={item.img} alt="" />
                 </div>
                 <p
                   style={{
-                    opacity: item.category === category ? 1 : "0.4",
+                    opacity: item.category === selectedCat ? 1 : "0.4",
                     color: "white",
                     fontSize: "16px",
                     borderBottom:
-                      item.category === category ? "2px solid white" : "none",
+                      item.category === selectedCat
+                        ? "2px solid white"
+                        : "none",
                     paddingBottom: "10px",
                   }}
                 >

@@ -1,5 +1,7 @@
 import { Box, Typography } from "@mui/material";
+import axios from "axios";
 import React from "react";
+import { useEffect } from "react";
 import { useState } from "react";
 
 const items = [
@@ -51,7 +53,7 @@ const Category = ({ filtered }) => {
                   width: "315px",
                   height: "200px",
                 }}
-                src={pop.img}
+                src={pop.images}
                 alt=""
               />
             </Box>
@@ -69,7 +71,7 @@ const Category = ({ filtered }) => {
                     marginLeft: "10px",
                   }}
                 >
-                  {pop.rate}
+                  {/* {pop.rate} */}
                 </Typography>
               </Box>
             </Box>
